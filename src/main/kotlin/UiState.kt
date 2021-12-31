@@ -4,7 +4,6 @@ import data.toLocalDateTime
 import data.toRealCoords
 import org.geotools.data.FeatureReader
 import org.geotools.data.Query
-import org.geotools.data.simple.SimpleFeatureSource
 import org.geotools.data.store.ContentDataStore
 import org.geotools.data.store.ContentEntry
 import org.geotools.data.store.ContentFeatureSource
@@ -37,7 +36,7 @@ object LoadedData {
     var locationsOnSelectedDay: List<Location>? = null
 }
 
-class LocationListDataStore(val day: LocalDate) : ContentDataStore() {
+class LocationListDataStore(private val day: LocalDate) : ContentDataStore() {
     override fun createTypeNames(): List<Name> {
         return listOf(NameImpl("visited-$day"))
     }
@@ -52,14 +51,13 @@ class LocationListFeatureSource(entry: ContentEntry, query: Query) : ContentFeat
     query
 ) {
     override fun getBoundsInternal(query: Query): ReferencedEnvelope {
-        val x =  ReferencedEnvelope(
+        return ReferencedEnvelope(
             LoadedData.locationsOnSelectedDay?.minOf { it.longitudeE7.toRealCoords() } ?: 0.0,
             LoadedData.locationsOnSelectedDay?.maxOf { it.longitudeE7.toRealCoords() } ?: 0.0,
             LoadedData.locationsOnSelectedDay?.minOf { it.latitudeE7.toRealCoords() } ?: 0.0,
             LoadedData.locationsOnSelectedDay?.maxOf { it.latitudeE7.toRealCoords() } ?: 0.0,
             DefaultGeographicCRS.WGS84
         )
-        return x
     }
 
     override fun getCountInternal(query: Query): Int {

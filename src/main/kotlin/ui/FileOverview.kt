@@ -1,4 +1,3 @@
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -14,7 +13,7 @@ import java.util.zip.ZipInputStream
 @Composable
 fun FileOverview(file: File, onFileError: () -> Unit) {
     var selectedDayIndex by remember { mutableStateOf(0) }
-    var selectedDay by remember { mutableStateOf<LocalDate?>(null)}
+    var selectedDay by remember { mutableStateOf<LocalDate?>(null) }
 
     val loadSuccessful = loadLocationHistory(file)
     if (!loadSuccessful) onFileError()
@@ -36,13 +35,12 @@ fun FileOverview(file: File, onFileError: () -> Unit) {
     }
 
 
-    if(LoadedData.locationsOnSelectedDay != null) {
+    if (LoadedData.locationsOnSelectedDay != null) {
         MapOfDailyActivities(selectedDay)
     }
 }
 
-//const val locationHistoryFile = "Takeout/Location History/Location History.json"
-const val locationHistoryFile = "Takeout/Location History/fake_history.json"
+const val locationHistoryFile = "Takeout/Location History/Location History.json"
 
 val moshi: Moshi = Moshi.Builder()
     .addLast(KotlinJsonAdapterFactory())

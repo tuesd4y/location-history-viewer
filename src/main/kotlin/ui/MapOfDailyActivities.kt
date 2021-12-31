@@ -11,9 +11,7 @@ import androidx.compose.ui.unit.dp
 import org.geotools.data.shapefile.ShapefileDataStore
 import org.geotools.map.FeatureLayer
 import org.geotools.map.MapContent
-import org.geotools.styling.Font
 import org.geotools.styling.SLD
-import org.geotools.styling.TextSymbolizer
 import org.geotools.swing.JMapPane
 import org.geotools.swing.tool.PanTool
 import org.geotools.swing.tool.ZoomInTool
@@ -42,9 +40,6 @@ fun ActivityMap(selectedDay: LocalDate) {
 
     val featureDataStore = LoadedData.dailyDataStore(selectedDay)
     val source = featureDataStore.getFeatureSource("visited-$selectedDay")
-
-//    val store = ShapefileDataStore(URL("file:///Users/dev/Downloads/GERICHTSBEZIRKE/GERICHTSBEZIRKEPolygon.shp"))
-//    val source = store.featureSource
 
     val worldStore =
         ShapefileDataStore(LoadedData.javaClass.getResource("/world-administrative-boundaries/world-administrative-boundaries.shp"))

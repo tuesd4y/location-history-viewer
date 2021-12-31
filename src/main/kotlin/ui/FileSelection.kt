@@ -40,9 +40,11 @@ fun FileSelection(onSelect: (File) -> Unit) {
             onDismissRequest = { isDialogOpen = false },
             title = { Text("Problem with opening file") },
             text = { Text(dialogMessage) },
-            confirmButton = { Button(onClick = { isDialogOpen = false }) {
-                Text("Dismiss")
-            } }
+            confirmButton = {
+                Button(onClick = { isDialogOpen = false }) {
+                    Text("Dismiss")
+                }
+            }
         )
     }
 }
@@ -50,4 +52,4 @@ fun FileSelection(onSelect: (File) -> Unit) {
 @Preview
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun FileSelectionPreview() = FileSelection {  }
+fun FileSelectionPreview() = FileSelection { }

@@ -14,15 +14,15 @@ import java.io.File
 @Composable
 @Preview
 fun App() {
-//    var state by remember { mutableStateOf(UiState.FileSelection) }
-//    var fileToLoad by remember { mutableStateOf<File?>(null) }
+    var state by remember { mutableStateOf(UiState.FileSelection) }
+    var fileToLoad by remember { mutableStateOf<File?>(null) }
 
     // for skipping file selection
-    var state by remember { mutableStateOf(UiState.FileViewing) }
-    var fileToLoad by remember { mutableStateOf<File?>(File("/Users/dev/Downloads/Takeout.zip")) }
+//    var state by remember { mutableStateOf(UiState.FileViewing) }
+//    var fileToLoad by remember { mutableStateOf<File?>(File("/Users/dev/Downloads/Takeout.zip")) }
 
     MaterialTheme {
-        when(state) {
+        when (state) {
             UiState.FileSelection -> FileSelection {
                 state = UiState.FileViewing
                 fileToLoad = it
@@ -33,7 +33,6 @@ fun App() {
         }
     }
 }
-
 
 
 fun main() = auroraApplication {

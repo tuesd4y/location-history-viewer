@@ -1,6 +1,7 @@
 package data
 
 import java.time.Instant
+import java.time.LocalDateTime
 import java.time.ZoneOffset
 
 data class LocationHistoryTakeout(val locations: List<Location>)
@@ -12,14 +13,14 @@ data class Location(
     val accuracy: Long,
     val altitude: Long? = null,
     val verticalAccuracy: Long? = null,
-    val source: Source,
+    val source: Source?,
     val deviceTag: Long,
     val platformType: PlatformType? = null,
     val activity: List<LocationActivity>? = null,
     val locationMetadata: List<LocationMetadatum>? = null
 )
 
-fun String.toLocalDateTime() = Instant
+fun String.toLocalDateTime(): LocalDateTime = Instant
     .ofEpochMilli(toLong())
     .atOffset(ZoneOffset.UTC)
     .toLocalDateTime()
@@ -41,17 +42,22 @@ enum class Type {
     EXITING_VEHICLE,
     IN_VEHICLE,
     ON_BICYCLE,
+    IN_CAR,
+    IN_BUS,
     ON_FOOT,
     RUNNING,
     STILL,
     TILTING,
     UNKNOWN,
-    WALKING;
+    WALKING,
+    IN_RAIL_VEHICLE,
+    IN_ROAD_VEHICLE,
+    IN_TWO_WHEELER_VEHICLE,
+    IN_FOUR_WHEELER_VEHICLE
 }
 
 data class LocationMetadatum(
     val timestampMs: String,
-
     val wifiScan: WifiScan
 )
 
@@ -71,5 +77,6 @@ enum class PlatformType {
 enum class Source {
     CELL,
     GPS,
-    WIFI;
+    WIFI,
+    UNKNOWN;
 }
